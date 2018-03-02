@@ -1,0 +1,1 @@
+# cog-daily-prize
