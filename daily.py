@@ -30,7 +30,17 @@ class daily:
 				with open(targetFolder + targetID + ".txt", "w+") as file:
 					file.writelines(lines)
 			else:
-				await self.bot.say(":x:  |  " + ctx.message.author.mention + ", you have already received a prize in the last day! Try again in " + format(((lastDaily - datetime.utcnow()).seconds) / 60 / 60, ".1f") + " hours.")				return None
+				timeRemaining = (lastDaily - datetime.utcnow()).seconds
+				if timeRemaining <= 60:
+					timeRemaining = str((int) (timeRemaining)) + " seconds"
+				elif timeRemaining <= 120:
+					timeRemaining = "1 minute"
+				elif timeRemaining < 3600:
+					timeRemaining = str((int) ((timeRemaining / 60) + 1.0)) + " minutes"
+				else:
+					timeRemaining = format(((lastDaily - datetime.utcnow()).seconds) / 60 / 60, ".1f") + " hours"
+
+				await self.bot.say(":x:  |  " + ctx.message.author.mention + ", you have already received a prize in the last day! Try again in " + timeRemaining + ".")
 				return None
 		else:
 			with open(targetFolder + targetID + ".txt", "a+") as file:
