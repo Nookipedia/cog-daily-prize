@@ -24,9 +24,10 @@ class daily:
 				lastDaily = datetime.strptime(file.readline()[:-2], "%Y-%m-%d %H:%M:%S.%f")
 
 			if ((datetime.utcnow() - lastDaily) > timedelta(1)):
-				with open(targetFolder + targetID + ".txt", w) as file:
+				with open(targetFolder + targetID + ".txt", "r") as file:
 					lines = file.readlines()
-					lines[0] = str(datetime.utcnow()) + "\n"
+				lines[0] = str(datetime.utcnow()) + "\n"
+				with open(targetFolder + targetID + ".txt", "w+") as file:
 					file.writelines(lines)
 			else:
 				await self.bot.say(ctx.message.author.mention + ", you have already received a daily prize in the last 24 hours!")
